@@ -38,7 +38,7 @@ const Login = () => {
           localStorage.setItem('token', data.token)
           setToken(data.token)
         }else{
-          toast.success('Invalid Credentials')
+          toast.error('Invalid Credentials')
           console.log(data.message)
         }
 
