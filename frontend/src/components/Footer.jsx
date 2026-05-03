@@ -9,7 +9,7 @@ const Footer = () => {
             {/* -------Left Section------- */}
             <div>
                 <img className='mb-5 w-40' src={assets.logo} alt="" />
-                <p className='w-full md:w-2/3 text-gray-600 leading-6'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud. You don't know me yet.    </p>
+                <p className='w-full md:w-2/3 text-gray-600 leading-6'>Prescripto is a seamless healthcare booking platform that connects patients with trusted doctors. We make scheduling appointments simple, fast, and reliable—so you can focus on your health, not the hassle.    </p>
             </div>
             {/* --------Middle Section-------- */}
             <div >
@@ -27,6 +27,7 @@ const Footer = () => {
                  <ul className='flex flex-col gap-2 text-gray-600'>
                     <li>+91 628-7889-986</li>
                     <li>avinash@google.com</li>
+                    <li><a href="https://prescripto-admin-gules.vercel.app/">Admin Login</a></li>
                  </ul>
             </div>
         </div>
@@ -34,7 +35,7 @@ const Footer = () => {
         {/* -------Copywrite Text --------- */}
         <div>
             <hr />
-            <p className='py-5 text-sm text-center'>Copyright 2024@ Prescripto - All Right Reserved</p>
+            <p className='py-5 text-sm text-center'>Copyright 2026@ Prescripto - All Right Reserved</p>
         </div>
     </div>
     </div>

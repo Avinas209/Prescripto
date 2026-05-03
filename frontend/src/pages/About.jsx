@@ -13,10 +13,10 @@ const About = () => {
         <img className='w-full md:max-w-[360px]' src={assets.about_image} alt="" />
 
         <div className='flex flex-col justify-center gap-6 md:w-2/4 text-sm text-gray-600'>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, aliquid. Tenetur a blanditiis eum. Fugit doloremque in similique at aperiam dolore, minus maxime laudantium ut. Ipsam impedit dolorem deserunt, nihil ducimus cupiditate quae ab possimus.</p>
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit consequatur minus deleniti nostrum aperiam temporibus ad incidunt! Sed officia aperiam inventore at recusandae aliquid praesentium nemo, quasi corrupti quis, blanditiis velit hic perspiciatis excepturi incidunt nam, id dolorum. Nihil modi doloremque veritatis, sed corrupti nisi.</p>
+          <p>Prescripto is a modern healthcare platform designed to simplify how patients connect with doctors. We provide an easy and reliable way to search, compare, and book appointments with verified medical professionals—all in one place.</p>
+          <p>Our platform is built with a focus on accessibility and efficiency, ensuring that users can find the right doctor without unnecessary delays. Whether it's a routine checkup or urgent consultation, Prescripto helps you take control of your healthcare journey.</p>
           <b className='text-gray-800'>Our Vision</b>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique excepturi, aliquid suscipit natus nisi culpa dolor deserunt non eaque accusamus, cupiditate consequatur harum possimus praesentium.</p>
+          <p>Our vision is to make quality healthcare accessible to everyone by leveraging technology. We aim to eliminate long waiting times, improve doctor-patient connectivity, and create a seamless digital experience for managing medical appointments.</p>
         </div>
       </div>
 
@@ -27,15 +27,15 @@ const About = () => {
       <div className='flex flex-col md:flex-row mb-20'>
         <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-primary hover:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
           <b>Efficiency:</b>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, eveniet.</p>
+          <p>Book appointments in minutes with a streamlined and user-friendly interface, reducing the time spent searching for the right doctor.</p>
         </div>
         <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-primary hover:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
         <b>Convenience:</b>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores enim dolor quo?</p>
+        <p>Access a wide network of trusted doctors anytime, anywhere, without the hassle of long queues or manual booking processes.</p>
         </div>
         <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-primary hover:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
         <b>Personalization:</b>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum, est.</p>
+        <p>Get tailored recommendations based on your needs, helping you find the most suitable healthcare provider quickly.</p>
         </div>
       </div>
 
