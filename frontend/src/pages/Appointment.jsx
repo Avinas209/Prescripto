@@ -30,56 +30,86 @@ const Appointment = () => {
 
     // Getting Current Date
 
-    let today = new Date()
+    let today = new Date();
 
-    for(let i = 0; i < 7; i++){
-      // getting date with index
-      let currentDate = new Date(today)
-      currentDate.setDate(today.getDate() + i)
-
-
-      // setting end time of the date with index 
-      let endTime = new Date()
-      endTime.setDate(today.getDate()+ i)
-      endTime.setHours(21,0,0,0)
-
-      // Setting hours
-      if(today.getDate() === currentDate.getDate()){
-        currentDate.setHours(currentDate.getHours() > 10 ? currentDate.getHours() + 1 : 10)
-        currentDate.setMinutes(currentDate.getMinutes() > 30 ? 30 : 0)
-      }else{
-        currentDate.setHours(10)
-        currentDate.setMinutes(0)
-      }
-      let timeSlots = []
-      while(currentDate < endTime){
-        let formattedTime = currentDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
-        
-        let day = currentDate.getDate()
-        let month = currentDate.getMonth() + 1
-        let year = currentDate.getFullYear()
-
-        const slotDate = day + "_" + month + "_" + year
-        const slotTime = formattedTime
-
-        const isSlotAvailable =  !docInfo?.slots_booked?.[slotDate]?.includes(slotTime);
-          
-        if (isSlotAvailable) {
-           timeSlots.push({
-            datetime: new Date(currentDate),
-            time: formattedTime
-          })
-        }
-        
-        
-        // Add slots to the variable timeslots
-        // Increment time by 30 minutes 
-        currentDate.setMinutes(currentDate.getMinutes() + 30)
-      }
-
-      setDocSlots(prev => ([...prev, timeSlots]))
+    // If current time is past 9 PM → start from tomorrow
+    if (today.getHours() >= 21) {
+      today.setDate(today.getDate() + 1);
     }
-  }
+
+    // Reset to start of day (important)
+    today.setHours(0, 0, 0, 0);
+
+    for (let i = 0; i < 7; i++) {
+
+      // Create fresh date for each iteration (no mutation bugs)
+      let currentDate = new Date(today);
+      currentDate.setDate(today.getDate() + i);
+
+      let endTime = new Date(currentDate);
+      endTime.setHours(21, 0, 0, 0);
+
+      let now = new Date();
+
+      // Check if it's actually "today"
+      const isToday =
+        currentDate.toDateString() === now.toDateString();
+
+      // Set starting time
+      if (isToday) {
+        let currentHour = now.getHours();
+        let currentMinute = now.getMinutes();
+
+        // Move to next valid slot
+        if (currentMinute > 30) {
+          currentHour += 1;
+          currentMinute = 0;
+        } else {
+          currentMinute = 30;
+        }
+
+        currentDate.setHours(
+          currentHour < 10 ? 10 : currentHour,
+          currentMinute,
+          0,
+          0
+        );
+      } else {
+        currentDate.setHours(10, 0, 0, 0);
+      }
+
+      let timeSlots = [];
+
+      while (currentDate < endTime) {
+        let formattedTime = currentDate.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+        let day = currentDate.getDate();
+        let month = currentDate.getMonth() + 1;
+        let year = currentDate.getFullYear();
+
+        const slotDate = `${day}_${month}_${year}`;
+        const slotTime = formattedTime;
+
+        const isSlotAvailable =
+          !docInfo?.slots_booked?.[slotDate]?.includes(slotTime);
+
+        if (isSlotAvailable) {
+          timeSlots.push({
+            datetime: new Date(currentDate),
+            time: formattedTime,
+          });
+        }
+
+        // Move to next slot (30 mins)
+        currentDate.setMinutes(currentDate.getMinutes() + 30);
+      }
+
+      setDocSlots((prev) => [...prev, timeSlots]);
+    }
+}
 
   const bookAppointment = async () => {
     if (!token) {
