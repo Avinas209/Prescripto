@@ -22,10 +22,10 @@ const Appointment = () => {
   const fetchDocInfo = async () => {
     const docInfo = doctors.find(doc => doc._id === docId)
     setDocInfo(docInfo)
-    console.log(docInfo)
   }
 
   const getAvailableSlots = async () => {
+    if (!docInfo) return;
     setDocSlots([])
 
     // Getting Current Date
@@ -51,7 +51,6 @@ const Appointment = () => {
         currentDate.setHours(10)
         currentDate.setMinutes(0)
       }
-
       let timeSlots = []
       while(currentDate < endTime){
         let formattedTime = currentDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
@@ -63,22 +62,19 @@ const Appointment = () => {
         const slotDate = day + "_" + month + "_" + year
         const slotTime = formattedTime
 
-        console.log(docInfo)
-        // const isSlotAvailable = docInfo.slots_booked[slotDate] && docInfo.slots_booked[slotDate].includes(slotTime) ? false : true
+        const isSlotAvailable =  !docInfo?.slots_booked?.[slotDate]?.includes(slotTime);
           
-        // if (isSlotAvailable) {
-          
-        // }
-        // Add slots to the variable timeslots
-          timeSlots.push({
+        if (isSlotAvailable) {
+           timeSlots.push({
             datetime: new Date(currentDate),
             time: formattedTime
           })
-         
-
+        }
+        
+        
+        // Add slots to the variable timeslots
         // Increment time by 30 minutes 
         currentDate.setMinutes(currentDate.getMinutes() + 30)
-        // console.log(docInfo.slots_booked)
       }
 
       setDocSlots(prev => ([...prev, timeSlots]))
@@ -112,7 +108,6 @@ const Appointment = () => {
       }
 
     } catch (error) {
-      console.log(error);
       toast.error(error.message)
       
     }
@@ -124,11 +119,12 @@ const Appointment = () => {
   },[doctors, docId])
 
   useEffect(() => {
+  if (docInfo) {
     getAvailableSlots()
-  }, [])
+  }
+}, [docInfo])
 
   useEffect(() => {
-    // console.log(docSlots)
   }, [docSlots])
 
   return docInfo && (
@@ -168,7 +164,7 @@ const Appointment = () => {
         <p>Booking Slots</p>
         <div className='flex gap-3 item-center w-full overflow-x-scroll mt-4 '>
           {
-            docSlots.length && docSlots.map((item, index) => (
+            docSlots.length > 0 && docSlots.map((item, index) => (
               <div onClick={()=> setSlotIndex(index)} className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${slotIndex === index ? 'bg-primary text-white' : 'border border-gray-200'}`} key={index}>
                 <p>{item[0] && daysOfWeek[item[0].datetime.getDay()]}</p>
                 <p>{item[0] && item[0].datetime.getDate()}</p>
